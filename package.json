@@ -1,0 +1,16 @@
+{
+  "name": "product-management-platform",
+  "version": "1.0.0",
+  "description": "Product Management Platform Project",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+     "start": "react-scripts start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
