@@ -7,7 +7,7 @@ const config = require('./config');
 // Connect to MongoDB
 const connectDB = async () => {
   try {
-    await mongoose.connect(config.MONGO_URI, {
+    await mongoose.connect(config.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -73,13 +73,15 @@ const seedInitialData = async () => {
             bucket: featureBucket._id,
             squad: frontendSquad._id,
             priority: 1,
-            status: 'Backlog',
-            revenueEstimate: 50000,
-            costSaving: 20000,
-            clientCount: 100,
-            clientBoost: 1.5,
-            effortManDays: 20,
-            costPerManDay: 500
+            status: 'Proposed',
+            metrics: {
+              revenueEstimate: 50000,
+              costSaving: 20000,
+              clientCount: 100,
+              clientBoost: 1.5,
+              effortManDays: 20,
+              costPerManDay: 500
+            }
           },
           {
             title: 'Dashboard Analytics',
@@ -87,13 +89,15 @@ const seedInitialData = async () => {
             bucket: featureBucket._id,
             squad: frontendSquad._id,
             priority: 2,
-            status: 'Backlog',
-            revenueEstimate: 75000,
-            costSaving: 30000,
-            clientCount: 80,
-            clientBoost: 2.0,
-            effortManDays: 15,
-            costPerManDay: 500
+            status: 'Proposed',
+            metrics: {
+              revenueEstimate: 75000,
+              costSaving: 30000,
+              clientCount: 80,
+              clientBoost: 2.0,
+              effortManDays: 15,
+              costPerManDay: 500
+            }
           }
         ];
         

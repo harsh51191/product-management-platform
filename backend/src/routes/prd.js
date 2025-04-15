@@ -112,10 +112,9 @@ router.post('/generate', async (req, res) => {
   }
 });
 
-// @route   GET /api/prd/providers
 // @desc    Get all available AI providers
 // @access  Public
-router.get('/providers', (req, res) => {
+router.get('/ai-config', (req, res) => {
   try {
     const providers = AIProviderService.getProviders();
     res.json(providers);

@@ -14,7 +14,7 @@ const aiProviders = {
   },
   gemini: {
     name: 'Google Gemini',
-    models: ['gemini-pro', 'gemini-ultra'],
+    models: ['gemini-2.0-flash', 'gemini-2.0-pro-exp'],
     apiKeyName: 'GEMINI_API_KEY',
     description: 'Google Gemini models for advanced AI capabilities'
   }
@@ -24,8 +24,8 @@ const aiProviders = {
 class AIProviderService {
   constructor() {
     this.providers = aiProviders;
-    this.defaultProvider = 'openai';
-    this.defaultModel = 'gpt-3.5-turbo';
+    this.defaultProvider = 'gemini';
+    this.defaultModel = 'gemini-2.0-flash';
   }
 
   // Get available providers
@@ -116,12 +116,43 @@ class AIProviderService {
 
   // Generate with Gemini
   async generateWithGemini(prompt, modelId, apiKey) {
-    // This would use Google's Gemini API client
-    // For now, we'll return a mock implementation
-    console.log('Using Gemini API with model:', modelId);
-    
-    // In a real implementation, this would call Gemini's API
-    return this.getFallbackContent();
+    try {
+      const axios = require('axios');
+      
+      const apiKeyToUse = apiKey || process.env[this.providers.gemini.apiKeyName];
+      
+      const model = modelId || 'gemini-2.0-flash';
+      
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKeyToUse}`;
+      
+      const requestData = {
+        contents: [{
+          parts: [{ text: prompt }]
+        }]
+      };
+      
+      const response = await axios.post(url, requestData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const responseText = response.data.candidates[0].content.parts[0].text;
+      
+      const jsonStartIndex = responseText.indexOf('{');
+      const jsonEndIndex = responseText.lastIndexOf('}') + 1;
+      
+      if (jsonStartIndex >= 0 && jsonEndIndex > jsonStartIndex) {
+        const jsonStr = responseText.substring(jsonStartIndex, jsonEndIndex);
+        return JSON.parse(jsonStr);
+      }
+      
+      console.warn('No JSON found in Gemini response, returning raw text');
+      return responseText;
+    } catch (error) {
+      console.error('Error generating content with Gemini:', error.message);
+      return this.getFallbackContent();
+    }
   }
 
   // Create prompt for AI

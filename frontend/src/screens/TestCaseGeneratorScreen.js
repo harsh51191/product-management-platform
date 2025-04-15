@@ -44,8 +44,8 @@ const TestCaseGeneratorScreen = () => {
   
   // State for AI provider selection
   const [providers, setProviders] = useState({});
-  const [selectedProvider, setSelectedProvider] = useState('openai');
-  const [selectedModel, setSelectedModel] = useState('');
+  const [selectedProvider, setSelectedProvider] = useState('gemini');
+  const [selectedModel, setSelectedModel] = useState('gemini-2.0-flash');
   const [apiKey, setApiKey] = useState('');
   
   // State for test case generation
@@ -65,7 +65,7 @@ const TestCaseGeneratorScreen = () => {
       try {
         const [reqRes, providersRes] = await Promise.all([
           axios.get(`${config.API_BASE_URL}/requirements`),
-          axios.get(`${config.API_BASE_URL}/prd/providers`) // Reuse providers endpoint from PRD
+          axios.get(`${config.API_BASE_URL}/ai-providers`) // Reuse providers endpoint from PRD
         ]);
         
         // Filter requirements that have a PRD but no test cases yet
