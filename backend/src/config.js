@@ -13,8 +13,8 @@ module.exports = {
   JWT_SECRET: process.env.JWT_SECRET || 'product-management-secret-key',
   JWT_EXPIRE: process.env.JWT_EXPIRE || '30d',
   
-  // OpenAI Configuration
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY,
   
   // ROI Calculation Constants
   DEFAULT_COST_PER_MANDAY: 500, // Default cost per man-day in currency units

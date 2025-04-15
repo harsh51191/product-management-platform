@@ -23,6 +23,7 @@ app.use(morgan('dev'));
 app.use('/api/requirements', require('./routes/requirements'));
 app.use('/api/prd', require('./routes/prd'));
 app.use('/api/test-cases', require('./routes/test-cases'));
+app.use('/api/ai-providers', require('./routes/ai-providers'));
 
 // Default route
 app.get('/', (req, res) => {

@@ -45,8 +45,8 @@ const PRDGeneratorScreen = () => {
   
   // State for AI provider selection
   const [providers, setProviders] = useState({});
-  const [selectedProvider, setSelectedProvider] = useState('openai');
-  const [selectedModel, setSelectedModel] = useState('');
+  const [selectedProvider, setSelectedProvider] = useState('gemini');
+  const [selectedModel, setSelectedModel] = useState('gemini-2.0-flash');
   const [apiKey, setApiKey] = useState('');
   
   // State for PRD generation
@@ -66,7 +66,7 @@ const PRDGeneratorScreen = () => {
       try {
         const [reqRes, providersRes] = await Promise.all([
           axios.get(`${config.API_BASE_URL}/requirements`),
-          axios.get(`${config.API_BASE_URL}/prd/providers`)
+          axios.get(`${config.API_BASE_URL}/ai-providers`)
         ]);
         
         // Filter requirements that don't have a PRD yet
